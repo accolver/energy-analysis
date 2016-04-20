@@ -11,16 +11,9 @@ data.energy <- import.csv('energy_consumption.csv')
 data.house <- import.csv('house.csv')
 data.household <- import.csv('household.csv')
 
-# All data's rows correspond
-# Drop redundant Primray Key
-data.house <- data.house[, -1]
-data.household <- data.household[, -1]
-
-# Concatenate data
-combined <- cbind(
-  data.energy,
-  data.house,
-  data.household
-)
+#Merge frames on FK = DOEID
+combined1<-merge(x = data.energy, y = data.house, by = "DOEID", all.x = TRUE)
+combined<-merge(x = combined1,y = data.household, by = "DOEID", all.x = TRUE)
 
 write.csv(combined, 'combined_energy.csv')
+
