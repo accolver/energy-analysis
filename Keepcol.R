@@ -3,6 +3,7 @@ my.data<-read.csv("combined_energy.csv")
 
 keepvec<-as.numeric()
 
+#Need to pass vector of default data into keepcol
 for(j in 1:ncol(my.data)){
   keepvec[j]<-keepcol(my.data[,j],999999,0.5)
 }
