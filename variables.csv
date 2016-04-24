@@ -1,102 +1,103 @@
-codebook:,http://www.eia.doe.gov/emeu/recs/recspubuse05/pdf/recs05codebook.pdf,
-,,
-House.csv,,
-,VARIABLE,VARIABLE LABEL
-,DOEID,4-digit identification number
-,ALTHUQ,Alternative type of housing unit
-,WALLTYPE,Exterior Wall Construction Material
-,YEARMADE,Year Home Built
-,URBRUR,Reported type of neighborhood
-,UGASHERE,Natural gas from underground pipe available
-,TOTSQFT,Total square footage
-,TOTBASESQFT,Total Basement square footage
-,TOTATTCSQFT,Total Attic square footage
-,TOTGARGSQFT,Total Garage square footage
-,TOTRHMSQFT,Total all other areas
-,TOTHSQFT,Total heated square footage
-,TOTUSQFT,Total unheated square footage
-,BASHSQFT,Basement heated square footage
-,BASUSQFT,Basement unheated square footage
-,GARHSQFT,Garage heated square footage
-,GARUSQFT,Garage unheated square footage
-,ATTHSQFT,Attic heated square footage
-,ATTUSQFT,Attic unheated square footage
-,RHMHSQFT,Rest of HU heated square footage
-,RHMUSQFT,Rest of HU unheated square footage
-,TOTCSQFT,Total air-conditional square footage
-,TOTUCSQFT,Total unair-contiditioned square footage
-,BASCSQFT,Basement air-conditional square footage
-,BASUCSQFT,Basement unair-contiditioned square footage
-,GARCSQFT,Garage air-conditional square footage
-,GARUCSQFT,Garage unair-contiditioned square footage
-,ATTCSQFT,Attic air-conditional square footage
-,ATTUCSQFT,Attic unair-contiditioned square footage
-,RHMCSQFT,Rest of HU air-conditional square footage
-,RHMUCSQFT,Rest of HU unair-contiditioned square footage
-,,
-Household.csv,,
-,VARIABLE,VARIABLE LABEL
-,DOEID,4-digit identification number
-,HBUSNESS,Do you operate a home-based business or service
-,OTHWORK,Any other kind of activity use a lot more energy
-,ATHOME,Is someone at home all day on a typical weekday
-,HHSEX,Are you/is the householder a male or a female
-,HHAGE,How old are you/is the householder
-,EMPLOYHH,How would you describe employment status
-,SPOUSE,Household living with a spouse/partner
-,SDESCENT,Householder Hispanic or Latino
-,NHSLDMEM,How many people normally live in this household
-,AGEHHMEM1,Age of the householder
-,AGEHHMEM2,Age of the next oldest household member
-,AGEHHMEM3,Age of the next oldest household member
-,AGEHHMEM4,Age of the next oldest household member
-,AGEHHMEM5,Age of the next oldest household member
-,AGEHHMEM6,Age of the next oldest household member
-,AGEHHMEM7,Age of the next oldest household member
-,AGEHHMEM8,Age of the next oldest household member
-,AGEHHMEM9,Age of the next oldest household member
-,AGEHHMEM10,Age of the next oldest household member
-,AGEHHMEM11,Age of the next oldest household member
-,AGEHHMEM12,Age of the next oldest household member
-,AGEHHMEMY,Age of the yountest household member
-,WORKPAY,Employment income from wages and salaries
-,RETIREPY,Retirement income from social security or pension
-,CASHBEN,Cash benefits from temporary assistance
-,NCASHBEN,Non-cash benefits from food stamps
-,MONEYPY,Total combined income in the past 12 months
-,,
-energy_consumption.csv,,
-,VARIABLE,VARIABLE LABEL
-,DOEID,4-digit identification number
-,LRGSTATE,Four Largest States
-,TYPEHUQ,Type of Home  (Respondent answer)
-,HD65,Heat Deg-Days: Base65 01 TO 12-2005 (Inoculated)
-,CD65,Cool Deg-Days: Base65 01 TO 12-2005 (Inoculated)
-,KWH,Kilowatt Hours Of Electricity Used
-,BTUEL,Electric Annual Use In Thousands Of BTU
-,CUFEETNG,CCFS (Hundred Cubic Feet) Of Natural Gas
-,BTUNG,Natural Gas Annual Use In Thousands Of BTU
-,GALLONFO,Gallons Of Fuel Oil Bought
-,BTUFO,Fuel Oil Annual Use In Thousands Of BTU
-,GALLONLP,Gallons Of LPG Bought
-,BTULP,LPG Annual Use In Thousands Of BTU
-,GALLONKR,Gallons Of Kerosene Bought
-,BTUKER,Annual Kerosene Use In Thousands Of BTU
-,BTUELCDR,Electric Dryer Use (Estimated)
-,BTUELDWH,Electric Dishwasher Use (Estimated)
-,BTUELFZZ,Electric Freezer Use (Estimated)
-,BTUELRFG,Electric Refrigerator Use (Estimated)
-,BTUELCOL,Electric AC Use (Estimated)
-,BTUELWTH,Electric Water Heat Use (Estimated)
-,BTUELSPH,Electric Space Heat Use (Estimated)
-,BTUELAPL,Electric Appliance Use (Estimated)
-,BTUNGAPL,Natural Gas Appliance Use (Estimated)
-,BTUNGWTH,Natural Gas Water Heat Use (Estimated)
-,BTUNGSPH,Natural Gas Space Heat Use (Estimated)
-,BTUFOAPL,Fuel Oil Appliance Use (Estimated)
-,BTUFOSPH,Fuel Oil Space Heat Use (Estimated)
-,BTUFOWTH,Fuel Oil Water Heat Use (Estimated)
-,BTULPAPL,LPG Appliance Use (Estimated)
-,BTULPSPH,LPG Space Heat Use (Estimated)
-,BTULPWTH,LPG Water Heat Use (Estimated)
-,BTUWOOD,Annual Wood Consumption Thousands BTU
+codebook:,http://www.eia.doe.gov/emeu/recs/recspubuse05/pdf/recs05codebook.pdf,,,,,,
+,,,,,,,
+House.csv,,,,,,,
+,VARIABLE,VARIABLE LABEL,,,,,Cleaned Columns:
+FK,DOEID,4-digit identification number,,,,,64
+Insuff Data,ALTHUQ,Alternative type of housing unit,,,,,
+,WALLTYPE,Exterior Wall Construction Material,,,,,
+,YEARMADE,Year Home Built,,,,,
+,URBRUR,Reported type of neighborhood,,,,,
+,UGASHERE,Natural gas from underground pipe available,,,,,
+,TOTSQFT,Total square footage,,,,,
+,TOTBASESQFT,Total Basement square footage,,,,,
+,TOTATTCSQFT,Total Attic square footage,,,,,
+,TOTGARGSQFT,Total Garage square footage,,,,,
+,TOTRHMSQFT,Total all other areas,,,,,
+,TOTHSQFT,Total heated square footage,,,,,
+,TOTUSQFT,Total unheated square footage,,,,,
+,BASHSQFT,Basement heated square footage,,,,,
+,BASUSQFT,Basement unheated square footage,,,,,
+,GARHSQFT,Garage heated square footage,,,,,
+,GARUSQFT,Garage unheated square footage,,,,,
+,ATTHSQFT,Attic heated square footage,,,,,
+,ATTUSQFT,Attic unheated square footage,,,,,
+,RHMHSQFT,Rest of HU heated square footage,,,,,
+,RHMUSQFT,Rest of HU unheated square footage,,,,,
+,TOTCSQFT,Total air-conditional square footage,,,,,
+,TOTUCSQFT,Total unair-contiditioned square footage,,,,,
+,BASCSQFT,Basement air-conditional square footage,,,,,
+,BASUCSQFT,Basement unair-contiditioned square footage,,,,,
+,GARCSQFT,Garage air-conditional square footage,,,,,
+,GARUCSQFT,Garage unair-contiditioned square footage,,,,,
+,ATTCSQFT,Attic air-conditional square footage,,,,,
+,ATTUCSQFT,Attic unair-contiditioned square footage,,,,,
+,RHMCSQFT,Rest of HU air-conditional square footage,,,,,
+,RHMUCSQFT,Rest of HU unair-contiditioned square footage,,,,,
+,,,,,,,
+Household.csv,,,,,,,
+,VARIABLE,VARIABLE LABEL,,,,,
+FK,DOEID,4-digit identification number,,,,,
+,HBUSNESS,Do you operate a home-based business or service,,,,,
+,OTHWORK,Any other kind of activity use a lot more energy,,,,,
+,ATHOME,Is someone at home all day on a typical weekday,,,,,
+,HHSEX,Are you/is the householder a male or a female,,,,,
+,HHAGE,How old are you/is the householder,,,,,
+,EMPLOYHH,How would you describe employment status,,,,,
+,SPOUSE,Household living with a spouse/partner,,,,,
+,SDESCENT,Householder Hispanic or Latino,,,,,
+,NHSLDMEM,How many people normally live in this household,,,,,
+,AGEHHMEM1,Age of the householder,,,,,
+Insuff data,AGEHHMEM2,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM3,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM4,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM5,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM6,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM7,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM8,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM9,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM10,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM11,Age of the next oldest household member,,,,,
+Insuff data,AGEHHMEM12,Age of the next oldest household member,,,,,
+NEW,AVGAGEHH,Average age of household member,,,,,
+,AGEHHMEMY,Age of the yountest household member,,,,,
+,WORKPAY,Employment income from wages and salaries,,,,,
+,RETIREPY,Retirement income from social security or pension,,,,,
+,CASHBEN,Cash benefits from temporary assistance,,,,,
+,NCASHBEN,Non-cash benefits from food stamps,,,,,
+,MONEYPY,Total combined income in the past 12 months,,,,,
+,,,,,,,
+energy_consumption.csv,,,,,,,
+,VARIABLE,VARIABLE LABEL,,,,,
+,DOEID,4-digit identification number,,,,,
+,LRGSTATE,Four Largest States,,,,,
+,TYPEHUQ,Type of Home  (Respondent answer),,,,,
+,HD65,Heat Deg-Days: Base65 01 TO 12-2005 (Inoculated),,,,,
+,CD65,Cool Deg-Days: Base65 01 TO 12-2005 (Inoculated),,,,,
+OUTPUT1,KWH,Kilowatt Hours Of Electricity Used,,,,,
+Repeat (linear transform),BTUEL,Electric Annual Use In Thousands Of BTU,,,,,
+OUTPUT2,CUFEETNG,CCFS (Hundred Cubic Feet) Of Natural Gas,,,,,
+Repeat (linear transform),BTUNG,Natural Gas Annual Use In Thousands Of BTU,,,,,
+Insuff data,GALLONFO,Gallons Of Fuel Oil Bought,,,,,
+Insuff data,BTUFO,Fuel Oil Annual Use In Thousands Of BTU,,,,,
+Insuff data,GALLONLP,Gallons Of LPG Bought,,,,,
+Insuff data,BTULP,LPG Annual Use In Thousands Of BTU,,,,,
+Insuff data,GALLONKR,Gallons Of Kerosene Bought,,,,,
+Insuff data,BTUKER,Annual Kerosene Use In Thousands Of BTU,,,,,
+,BTUELCDR,Electric Dryer Use (Estimated),,,,,
+,BTUELDWH,Electric Dishwasher Use (Estimated),,,,,
+,BTUELFZZ,Electric Freezer Use (Estimated),,,,,
+,BTUELRFG,Electric Refrigerator Use (Estimated),,,,,
+,BTUELCOL,Electric AC Use (Estimated),,,,,
+,BTUELWTH,Electric Water Heat Use (Estimated),,,,,
+,BTUELSPH,Electric Space Heat Use (Estimated),,,,,
+,BTUELAPL,Electric Appliance Use (Estimated),,,,,
+,BTUNGAPL,Natural Gas Appliance Use (Estimated),,,,,
+,BTUNGWTH,Natural Gas Water Heat Use (Estimated),,,,,
+,BTUNGSPH,Natural Gas Space Heat Use (Estimated),,,,,
+Insuff data,BTUFOAPL,Fuel Oil Appliance Use (Estimated),,,,,
+Insuff data,BTUFOSPH,Fuel Oil Space Heat Use (Estimated),,,,,
+Insuff data,BTUFOWTH,Fuel Oil Water Heat Use (Estimated),,,,,
+Insuff data,BTULPAPL,LPG Appliance Use (Estimated),,,,,
+Insuff data,BTULPSPH,LPG Space Heat Use (Estimated),,,,,
+Insuff data,BTULPWTH,LPG Water Heat Use (Estimated),,,,,
+Insuff data,BTUWOOD,Annual Wood Consumption Thousands BTU,,,,,
