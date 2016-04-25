@@ -66,7 +66,7 @@ do_cv <- function(df, k, output, modeltype) {
       preddataval <- as.data.frame(preddataval)
       predframe <- prediction(preddatanum[[1]],testframe[[ncol(testframe)]])
      } else if(modeltype == "tree"){
-       outmod <- rpart(output~.,data=trainframe,method="class")
+       outmod <- rpart(output~.,data=trainframe,method="class",control = rpart.control(cp = 0.001))
        preddata <- predict(outmod, testframe)
        preddatanum <- as.data.frame(preddata)
        preddataval <- as.numeric()
@@ -104,3 +104,46 @@ do_cv <- function(df, k, output, modeltype) {
   cat('The average AUC for the k folds is: ',mean(outframe$auc),'\n')
   return(outframe)
 }
+
+####################
+#Train Final Models#
+####################
+
+#SVM
+pcarand <- pcadata[sample(nrow(pcadata)),]
+trainset <- pcarand[1:(nrow(pcarand)*0.7),]
+testset <- pcarand[-(1:(nrow(pcarand)*0.7)),]
+finalmod <- svm(KWH.cat~.,data=trainset)
+preddata <- predict(finalmod, testset)
+preddatanum <- as.data.frame(as.numeric(preddata))
+preddatanum <- round(preddatanum[[1]],0)
+inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum[[1]])
+acc <- 0
+for(nn in 1:nrow(inframe)){
+  if(inframe[nn,1]==inframe[nn,2]){
+    acc <- acc + 1
+  }
+}
+accmeas <- acc/nrow(inframe)
+cat('The average accuracy for the svm model is: ',accmeas,'\n')
+
+#Tree
+pcarand <- pcadata[sample(nrow(pcadata)),]
+trainset <- pcarand[1:(nrow(pcarand)*0.7),]
+testset <- pcarand[-(1:(nrow(pcarand)*0.7)),]
+finalmod <- rpart(KWH.cat~.,data=trainset,method="class",control = rpart.control(cp = 0.001))
+preddata <- predict(finalmod, testset)
+preddatanum <- as.numeric()
+for (pp in 1:nrow(preddata)){
+  preddatanum <- which.max(preddata[pp,])
+}
+preddatanum <- as.data.frame(preddatanum)
+inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum[[1]])
+acc <- 0
+for(nn in 1:nrow(inframe)){
+  if(inframe[nn,1]==inframe[nn,2]){
+    acc <- acc + 1
+  }
+}
+accmeas <- acc/nrow(inframe)
+cat('The average accuracy for the tree model is: ',accmeas,'\n')
