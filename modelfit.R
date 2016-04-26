@@ -79,10 +79,24 @@ do_cv <- function(df, k, output, modeltype) {
        }
       preddataval <- as.data.frame(preddataval)
       predframe <- prediction(1-preddatanum[[1]],testframe[[ncol(testframe)]])
+     } else if(modeltype == "nb"){
+       outmod <- naiveBayes(output~.,data=trainframe)
+       preddata <- predict(outmod, testframe, type="raw")
+       preddatanum <- as.data.frame(preddata)
+       preddataval <- as.numeric()
+       for(kk in 1:nrow(preddatanum)){
+         if(preddatanum[kk,1]>0.5){
+           preddataval[kk] <- 0
+         } else{
+           preddataval[kk] <- 1
+         }
+       }
+       preddataval <- as.data.frame(preddataval)
+       predframe <- prediction(1-preddatanum[[1]],testframe[[ncol(testframe)]])
      } else {
       stop("Error - not a defined function type")
     }
-    perf <- performance(predframe, measure="tpr", x.measure="fpr")
+    perf <- performance(predframe, measure="tnr", x.measure="fnr")
     perf2 <- performance(predframe, measure="auc")
     auc[ii] <- as.numeric(perf2@y.values)
     plot(perf, main="ROC Plot", col="blue")
@@ -188,6 +202,49 @@ accmeas <- acc/nrow(inframe)
 highrate <- highident/counthigh
 lowrate <- lowident/countlow
 cat('The average accuracy for the tree model is: ',accmeas,'\n')
+cat('The identification rate for high values is: ',highrate,'\n')
+cat('The identification rate for low values is: ',lowrate,'\n')
+cat('\n')
+
+#NB
+pcarand <- pcadata[sample(nrow(pcadata)),]
+trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
+testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
+finalmod <- naiveBayes(Output~.,data=trainset)
+preddata <- predict(finalmod, testset,type="raw")
+preddatanum <- as.data.frame(as.numeric(preddata))
+preddatanum <- as.numeric()
+for (pp in 1:nrow(preddata)){
+  preddatanum[pp] <- which.max(as.numeric(preddata[pp,]))
+}
+preddatanum <- as.data.frame(preddatanum)
+inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum)
+acc <- 0
+counthigh <- 0
+highident <- 0
+countlow <- 0
+lowident <- 0
+for(nn in 1:nrow(inframe)){
+  if(inframe[nn,1]==inframe[nn,2]){
+    acc <- acc + 1
+  }
+  if(inframe[nn,1]==3){
+    counthigh <- counthigh + 1
+  } 
+  if(inframe[nn,1]==3&inframe[nn,2]==3){
+    highident <- highident + 1
+  }
+  if(inframe[nn,1]==1){
+    countlow <- countlow + 1
+  } 
+  if(inframe[nn,1]==1&inframe[nn,2]==1){
+    lowident <- lowident + 1
+  }
+}
+accmeas <- acc/nrow(inframe)
+highrate <- highident/counthigh
+lowrate <- lowident/countlow
+cat('The average accuracy for the NB model is: ',accmeas,'\n')
 cat('The identification rate for high values is: ',highrate,'\n')
 cat('The identification rate for low values is: ',lowrate,'\n')
 cat('\n')
