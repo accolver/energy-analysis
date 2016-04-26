@@ -7,6 +7,8 @@ library(party)
 library(ggplot2)
 options(scipen=999)
 
+pcadata <- read.csv('pca_energy.csv')
+
 #Pre-process PCA data into subcategories (1,0) for each output category
 Output.Cat1 <- as.numeric(rep(0,length(pcadata$Output)))
 Output.Cat2 <- as.numeric(rep(0,length(pcadata$Output)))
@@ -19,7 +21,7 @@ for (b in 1:length(pcadata$Output)){
     Output.Cat2[b] <- 1
   } else {
     Output.Cat3[b] <- 1
-  } 
+  }
 }
 
 pcadatain <- pcadata[,-grep("Output",names(pcadata))]
@@ -145,13 +147,13 @@ for(nn in 1:nrow(inframe)){
   }
   if(inframe[nn,1]==3){
     counthigh <- counthigh + 1
-  } 
+  }
   if(inframe[nn,1]==3&inframe[nn,2]==3){
     highident <- highident + 1
   }
   if(inframe[nn,1]==1){
     countlow <- countlow + 1
-  } 
+  }
   if(inframe[nn,1]==1&inframe[nn,2]==1){
     lowident <- lowident + 1
   }
@@ -187,13 +189,13 @@ for(nn in 1:nrow(inframe)){
   }
   if(inframe[nn,1]==3){
     counthigh <- counthigh + 1
-  } 
+  }
   if(inframe[nn,1]==3&inframe[nn,2]==3){
     highident <- highident + 1
   }
   if(inframe[nn,1]==1){
     countlow <- countlow + 1
-  } 
+  }
   if(inframe[nn,1]==1&inframe[nn,2]==1){
     lowident <- lowident + 1
   }
@@ -230,13 +232,13 @@ for(nn in 1:nrow(inframe)){
   }
   if(inframe[nn,1]==3){
     counthigh <- counthigh + 1
-  } 
+  }
   if(inframe[nn,1]==3&inframe[nn,2]==3){
     highident <- highident + 1
   }
   if(inframe[nn,1]==1){
     countlow <- countlow + 1
-  } 
+  }
   if(inframe[nn,1]==1&inframe[nn,2]==1){
     lowident <- lowident + 1
   }
@@ -267,13 +269,13 @@ for(nn in 1:nrow(inframe)){
   }
   if(inframe[nn,1]==3){
     counthigh <- counthigh + 1
-  } 
+  }
   if(inframe[nn,1]==3&inframe[nn,2]==3){
     highident <- highident + 1
   }
   if(inframe[nn,1]==1){
     countlow <- countlow + 1
-  } 
+  }
   if(inframe[nn,1]==1&inframe[nn,2]==1){
     lowident <- lowident + 1
   }
