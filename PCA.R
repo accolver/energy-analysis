@@ -47,9 +47,16 @@ data.kwh <- data.energy$KWH
 data.kwh <- log(data.kwh)
 data.kwh.cat <- subsetBySD(data.kwh)
 
+#data.cng <- data.energy$CUFEETNG
+#data.cng[which(data.cng==0)] <- 0.00001
+#data.cng <- log(data.cng)
+#data.cng.cat <- subsetBySD(data.cng)
+
 #Pass PCA data to machine learning algorithm
 data.pca$x <- as.data.frame(data.pca$x)
 pcadata <- cbind(data.pca$x[,1:num.pca],data.kwh.cat)
-names(pcadata)[ncol(pcadata)] <- "KWH.cat"
+names(pcadata)[ncol(pcadata)] <- "Output"
 
+#pcadata <- cbind(data.pca$x[,1:25],data.cng.cat)
+#names(pcadata)[ncol(pcadata)] <- "Output"
 
