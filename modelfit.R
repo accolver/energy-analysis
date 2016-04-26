@@ -7,25 +7,25 @@ library(party)
 library(ggplot2)
 options(scipen=999)
 
-#Pre-process PCA data into subcategories (1,0) for each KWH category
-KWH.Cat1 <- as.numeric(rep(0,length(pcadata$KWH.cat)))
-KWH.Cat2 <- as.numeric(rep(0,length(pcadata$KWH.cat)))
-KWH.Cat3 <- as.numeric(rep(0,length(pcadata$KWH.cat)))
+#Pre-process PCA data into subcategories (1,0) for each output category
+Output.Cat1 <- as.numeric(rep(0,length(pcadata$Output)))
+Output.Cat2 <- as.numeric(rep(0,length(pcadata$Output)))
+Output.Cat3 <- as.numeric(rep(0,length(pcadata$Output)))
 
-for (b in 1:length(pcadata$KWH.cat)){
-  if(pcadata$KWH.cat[b]==1){
-    KWH.Cat1[b] <- 1
-  } else if(pcadata$KWH.cat[b]==2){
-    KWH.Cat2[b] <- 1
+for (b in 1:length(pcadata$Output)){
+  if(pcadata$Output[b]==1){
+    Output.Cat1[b] <- 1
+  } else if(pcadata$Output[b]==2){
+    Output.Cat2[b] <- 1
   } else {
-    KWH.Cat3[b] <- 1
+    Output.Cat3[b] <- 1
   } 
 }
 
-pcadatain <- pcadata[,-grep("KWH",names(pcadata))]
-pcadata.in1 <- cbind(pcadatain,KWH.Cat1)
-pcadata.in2 <- cbind(pcadatain,KWH.Cat2)
-pcadata.in3 <- cbind(pcadatain,KWH.Cat3)
+pcadatain <- pcadata[,-grep("Output",names(pcadata))]
+pcadata.in1 <- cbind(pcadatain,Output.Cat1)
+pcadata.in2 <- cbind(pcadatain,Output.Cat2)
+pcadata.in3 <- cbind(pcadatain,Output.Cat3)
 
 
 #Do_cv master function call performs k-fold cross validation on classifier models (requires binary output)
@@ -109,41 +109,123 @@ do_cv <- function(df, k, output, modeltype) {
 #Train Final Models#
 ####################
 
+perctrain <- 0.8
+
 #SVM
 pcarand <- pcadata[sample(nrow(pcadata)),]
-trainset <- pcarand[1:(nrow(pcarand)*0.7),]
-testset <- pcarand[-(1:(nrow(pcarand)*0.7)),]
-finalmod <- svm(KWH.cat~.,data=trainset)
+trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
+testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
+finalmod <- svm(Output~.,data=trainset)
 preddata <- predict(finalmod, testset)
 preddatanum <- as.data.frame(as.numeric(preddata))
 preddatanum <- round(preddatanum[[1]],0)
-inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum[[1]])
+inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum)
 acc <- 0
+counthigh <- 0
+highident <- 0
+countlow <- 0
+lowident <- 0
 for(nn in 1:nrow(inframe)){
   if(inframe[nn,1]==inframe[nn,2]){
     acc <- acc + 1
   }
+  if(inframe[nn,1]==3){
+    counthigh <- counthigh + 1
+  } 
+  if(inframe[nn,1]==3&inframe[nn,2]==3){
+    highident <- highident + 1
+  }
+  if(inframe[nn,1]==1){
+    countlow <- countlow + 1
+  } 
+  if(inframe[nn,1]==1&inframe[nn,2]==1){
+    lowident <- lowident + 1
+  }
 }
 accmeas <- acc/nrow(inframe)
+highrate <- highident/counthigh
+lowrate <- lowident/countlow
 cat('The average accuracy for the svm model is: ',accmeas,'\n')
+cat('The identification rate for high values is: ',highrate,'\n')
+cat('The identification rate for low values is: ',lowrate,'\n')
+cat('\n')
 
 #Tree
 pcarand <- pcadata[sample(nrow(pcadata)),]
-trainset <- pcarand[1:(nrow(pcarand)*0.7),]
-testset <- pcarand[-(1:(nrow(pcarand)*0.7)),]
-finalmod <- rpart(KWH.cat~.,data=trainset,method="class",control = rpart.control(cp = 0.001))
+trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
+testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
+finalmod <- rpart(Output~.,data=trainset,method="class",control = rpart.control(cp = 0.01))
 preddata <- predict(finalmod, testset)
 preddatanum <- as.numeric()
 for (pp in 1:nrow(preddata)){
-  preddatanum <- which.max(preddata[pp,])
+  preddatanum[pp] <- which.max(as.numeric(preddata[pp,]))
 }
 preddatanum <- as.data.frame(preddatanum)
 inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=preddatanum[[1]])
 acc <- 0
+counthigh <- 0
+highident <- 0
+countlow <- 0
+lowident <- 0
 for(nn in 1:nrow(inframe)){
   if(inframe[nn,1]==inframe[nn,2]){
     acc <- acc + 1
   }
+  if(inframe[nn,1]==3){
+    counthigh <- counthigh + 1
+  } 
+  if(inframe[nn,1]==3&inframe[nn,2]==3){
+    highident <- highident + 1
+  }
+  if(inframe[nn,1]==1){
+    countlow <- countlow + 1
+  } 
+  if(inframe[nn,1]==1&inframe[nn,2]==1){
+    lowident <- lowident + 1
+  }
 }
 accmeas <- acc/nrow(inframe)
+highrate <- highident/counthigh
+lowrate <- lowident/countlow
 cat('The average accuracy for the tree model is: ',accmeas,'\n')
+cat('The identification rate for high values is: ',highrate,'\n')
+cat('The identification rate for low values is: ',lowrate,'\n')
+cat('\n')
+
+#Default
+defvalue <- as.numeric()
+vals <- c(1,2,3)
+for(oo in 1:nrow(testset)){
+  defvalue[oo] <- sample(vals,1,replace=TRUE)
+}
+inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=defvalue)
+acc <- 0
+counthigh <- 0
+highident <- 0
+countlow <- 0
+lowident <- 0
+for(nn in 1:nrow(inframe)){
+  if(inframe[nn,1]==inframe[nn,2]){
+    acc <- acc + 1
+  }
+  if(inframe[nn,1]==3){
+    counthigh <- counthigh + 1
+  } 
+  if(inframe[nn,1]==3&inframe[nn,2]==3){
+    highident <- highident + 1
+  }
+  if(inframe[nn,1]==1){
+    countlow <- countlow + 1
+  } 
+  if(inframe[nn,1]==1&inframe[nn,2]==1){
+    lowident <- lowident + 1
+  }
+}
+accmeas <- acc/nrow(inframe)
+highrate <- highident/counthigh
+lowrate <- lowident/countlow
+cat('The average accuracy for the default model is: ',accmeas,'\n')
+cat('The identification rate for high values is: ',highrate,'\n')
+cat('The identification rate for low values is: ',lowrate,'\n')
+cat('\n')
+
