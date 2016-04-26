@@ -30,15 +30,17 @@ pca.threshold <- pca.cumsum < threshold
 num.pca <- length(which(pca.threshold)) + 1
 print(paste(num.pca, " components must be kept to capture ", threshold * 100, "% of the variance", sep = ""))
 
-pca <- princomp(data.energyPP)
+# pca <- princomp(data.energyPP)
+# biplot(pca, cex=c(0.01, 0.5))
+biplot(data.pca, cex=c(0.01, 0.5))
 
 #Categorize output by magnitude (for classifier algorithm)
 subsetBySD <- function (vect) {
   v.sd <- sd(vect)
   v.mean = mean(vect)
   ifelse(vect < v.mean - v.sd, 1,
-        ifelse(vect > v.mean + v.sd, 3,
-            2))
+  ifelse(vect > v.mean + v.sd, 3,
+         2))
 }
 
 data.kwh <- data.energy$KWH
@@ -47,7 +49,7 @@ data.kwh.cat <- subsetBySD(data.kwh)
 
 #Pass PCA data to machine learning algorithm
 data.pca$x <- as.data.frame(data.pca$x)
-pcadata <- cbind(data.pca$x[,1:25],data.kwh.cat)
+pcadata <- cbind(data.pca$x[,1:num.pca],data.kwh.cat)
 names(pcadata)[ncol(pcadata)] <- "KWH.cat"
 
 
