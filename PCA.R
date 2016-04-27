@@ -1,14 +1,16 @@
+library(ggplot2)
+
 write.csv <- function(ob, filename) {
   write.table(ob, filename, quote = FALSE, sep = ",", row.names = FALSE)
 }
 
 #Categorize output by magnitude (for classifier algorithm)
-subsetBySD <- function (vect) {
-  v.sd <- sd(vect)
+subsetBySD <- function (vect, z = 1) {
+  v.sd <- sd(vect) * z
   v.mean = mean(vect)
   ifelse(vect < v.mean - v.sd, 1,
-         ifelse(vect > v.mean + v.sd, 3,
-                2))
+  ifelse(vect > v.mean + v.sd, 3,
+        2))
 }
 
 
@@ -49,19 +51,17 @@ print(paste(num.pca, " components must be kept to capture ", threshold * 100, "%
 
 
 # Prep output variables
-data.kwh <- data.energy$KWH
-data.kwh <- log(data.kwh)
-data.kwh.cat <- subsetBySD(data.kwh)
+data.output <- data.energy$KWH # Change this to change output variable
 
-#data.cng <- data.energy$CUFEETNG
-#data.cng[which(data.cng==0)] <- 0.00001
-#data.cng <- log(data.cng)
-#data.cng.cat <- subsetBySD(data.cng)
+data.output.zeros <- which(data.output == 0)
+data.output[data.output.zeros] = 0.0001
+data.output <- log(data.output)
+data.output.cat <- subsetBySD(data.output, 0.5)
 
 
 #Pass PCA data to machine learning algorithm
 data.pca$x <- as.data.frame(data.pca$x)
-pcadata <- cbind(data.pca$x[,1:num.pca],data.kwh.cat)
+pcadata <- cbind(data.pca$x[,1:num.pca],data.output.cat)
 names(pcadata)[ncol(pcadata)] <- "Output"
 
 #pcadata <- cbind(data.pca$x[,1:25],data.cng.cat)
