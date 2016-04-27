@@ -9,6 +9,8 @@ options(scipen=999)
 
 pcadata <- read.csv('pca_energy.csv')
 
+hist(pcadata$Output)
+
 #Pre-process PCA data into subcategories (1,0) for each output category
 Output.Cat1 <- as.numeric(rep(0,length(pcadata$Output)))
 Output.Cat2 <- as.numeric(rep(0,length(pcadata$Output)))
@@ -128,6 +130,7 @@ do_cv <- function(df, k, output, modeltype) {
 perctrain <- 0.8
 
 #SVM
+set.seed(1000)
 pcarand <- pcadata[sample(nrow(pcadata)),]
 trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
 testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
@@ -167,6 +170,7 @@ cat('The identification rate for low values is: ',lowrate,'\n')
 cat('\n')
 
 #Tree
+set.seed(1000)
 pcarand <- pcadata[sample(nrow(pcadata)),]
 trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
 testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
@@ -209,6 +213,7 @@ cat('The identification rate for low values is: ',lowrate,'\n')
 cat('\n')
 
 #NB
+set.seed(1000)
 pcarand <- pcadata[sample(nrow(pcadata)),]
 trainset <- pcarand[1:(nrow(pcarand)*perctrain),]
 testset <- pcarand[-(1:(nrow(pcarand)*perctrain)),]
@@ -246,6 +251,7 @@ for(nn in 1:nrow(inframe)){
 accmeas <- acc/nrow(inframe)
 highrate <- highident/counthigh
 lowrate <- lowident/countlow
+# do_cv(pcadata, 10, Output, "df")
 cat('The average accuracy for the NB model is: ',accmeas,'\n')
 cat('The identification rate for high values is: ',highrate,'\n')
 cat('The identification rate for low values is: ',lowrate,'\n')
