@@ -13,6 +13,10 @@ subsetBySD <- function (vect, z = 1) {
         2))
 }
 
+binarize <- function (vect) {
+  m <- mean(vect)
+  sapply(vect, function (x) ifelse(x > m, 1, 0))
+}
 
 
 data.energy <- read.csv('cleaned_data.csv')
