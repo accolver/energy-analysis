@@ -1,0 +1,58 @@
+---
+title: "Profiling Household Energy Consumption"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Abstract
+
+## Introduction
+
+### Cleaning Data
+#### Removing Columns
+#### Filling in Data
+
+## Method and Result
+
+### PCA
+Why we chose to do it
+How we did it
+Results: CumSum.png
+BiPlot.png
+
+### Classification
+Adjusting our SD threshold for improved accuracy on high and low
+Comparing classifier accuracy
+Output of best predictor
+
+### Reducing Error with Linear Model
+
+## Conclusion and Further Work
+
+## Takeaways
+This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
+
+
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
