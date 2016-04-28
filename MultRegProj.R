@@ -24,7 +24,7 @@ my.data <- my.data[,-grep(("CUFEET"),names(my.data))]
 
 
 fit<-lm(KWH~.,data=my.data)
-step<-stepAIC(fit,direction="backward")
+fit<-stepAIC(fit,direction="backward")
 numval<-predict(fit,my.data)
 defvec<-rep(mean(my.data$KWH),nrow(my.data))
 outset<-as.data.frame(cbind(my.data$KWH,numval,defvec))
@@ -36,7 +36,6 @@ RMSE2<-sqrt(mean(SE2))
 print(fit$coefficients)
 cat("The RMSE of the lienar fit is: ",RMSE1,"\n")
 cat("The RMSE of the default predictor is: ",RMSE2,"\n")
-
 
 #print(step$anova)
 
