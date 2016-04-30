@@ -7,7 +7,7 @@ library(party)
 library(ggplot2)
 options(scipen=999)
 
-pcadata <- read.csv('pca_energy.csv')
+pcadata <- read.csv('pca_energy_FINAL.csv')
 
 hist(pcadata$Output)
 
@@ -260,9 +260,7 @@ cat('\n')
 #Default
 defvalue <- as.numeric()
 vals <- c(1,2,3)
-for(oo in 1:nrow(testset)){
-  defvalue[oo] <- sample(vals,1,replace=TRUE)
-}
+defvalue <- rep(round(mean(testset$Output),0),nrow(testset))
 inframe <- data.frame(actual=testset[[ncol(testset)]],predicted=defvalue)
 acc <- 0
 counthigh <- 0

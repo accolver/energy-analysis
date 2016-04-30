@@ -19,14 +19,13 @@ binarize <- function (vect) {
 }
 
 
-data.energy <- read.csv('cleaned_data.csv')
+data.energy <- read.csv('cleaned_data_FINAL.csv')
 
 #Get rid of DOEID
 data.energyPP <- data.energy[,-1]
 
 #Get rid of outputs
 data.energyPP <- data.energyPP[,-grep("BTU",names(data.energyPP))]
-data.energyPP <- data.energyPP[,-grep("CUFEETNG",names(data.energyPP))]
 data.energyPP <- data.energyPP[,-grep("KWH",names(data.energyPP))]
 
 #Show correlation matrix to see if PCA applicable
@@ -55,7 +54,7 @@ print(paste(num.pca, " components must be kept to capture ", threshold * 100, "%
 
 
 # Prep output variables
-data.output <- data.energy$KWH # Change this to change output variable
+data.output <- data.energy$BTU # Change this to change output variable
 
 data.output.zeros <- which(data.output == 0)
 data.output[data.output.zeros] = 0.0001
@@ -71,4 +70,4 @@ names(pcadata)[ncol(pcadata)] <- "Output"
 #pcadata <- cbind(data.pca$x[,1:25],data.cng.cat)
 #names(pcadata)[ncol(pcadata)] <- "Output"
 
-write.csv(pcadata, 'pca_energy.csv')
+write.csv(pcadata, 'pca_energy_FINAL.csv')
