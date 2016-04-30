@@ -8,14 +8,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Abstract
+Understanding the nation's energy usage patterns is critical to building a sustainable infrastructure. Identifying areas of waste and opportunities to implement resource-saving practices could drastically reduce the cost of various energy types. In our analysis, we will look at the profiles of approximately 5,000 households to identify patterns related to the usage of electriciy and natural gas. From this data, we will recommend ways homeowners and landlords can reduce energy consumption. Additionally, we'll examine the feasability of predicting energy consumption given information about a household.
 
 ## Introduction
+Energy usage in US households consists primarily of electricity and natural gas, but the usage of these resources varies significantly.
 
-### Cleaning Data
+## Method and Result
+
+### Data Preparation
 #### Removing Columns
 #### Filling in Data
 
-## Method and Result
 
 ### PCA
 Why we chose to do it
@@ -30,10 +33,14 @@ Output of best predictor
 
 ### Reducing Error with Linear Model
 
+
 ## Conclusion and Further Work
+
 
 ## Takeaways
 This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
+
+Earlier exploratory analysis
 
 
 
