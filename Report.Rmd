@@ -7,6 +7,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Instructions from Karen:
+- Get best prediction
+  - Try different complexity of models
+- What is most important factors
+  - ranking
+    - split by total and by KWH and NG
+- How can we reduce energy consumption
+- Constrained optimization (given some factors that can't change how can we optimize energy consumption)
+
 ## Abstract
 Understanding the nation's energy usage patterns is critical to building a sustainable infrastructure. Identifying areas of waste and opportunities to implement resource-saving practices could drastically reduce the cost of various energy types. In our analysis, we will look at the profiles of approximately 5,000 households to identify patterns related to the usage of electriciy and natural gas. From this data, we will recommend ways homeowners and landlords can reduce energy consumption. Additionally, we'll examine the feasability of predicting energy consumption given information about a household.
 
@@ -41,9 +50,6 @@ Output of best predictor
 This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
 
 Earlier exploratory analysis
-
-
-
 
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
