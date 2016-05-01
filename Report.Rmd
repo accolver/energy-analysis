@@ -1,4 +1,4 @@
----
+  ---
 title: "Profiling Household Energy Consumption"
 output: html_document
 ---
@@ -7,17 +7,55 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Instructions from Karen:
+- Get best prediction
+  - Try different complexity of models
+- What is most important factors
+  - ranking
+    - split by total and by KWH and NG
+- How can we reduce energy consumption
+- Constrained optimization (given some factors that can't change how can we optimize energy consumption)
+
 ## Abstract
+Understanding the nation's energy usage patterns is critical to building a sustainable infrastructure. Identifying areas of waste and opportunities to implement resource-saving practices could drastically reduce the cost of various energy types. In our analysis, we will look at the profiles of approximately 5,000 households to identify patterns related to the usage of electriciy and natural gas. From this data, we will recommend ways homeowners and landlords can reduce energy consumption. Additionally, we'll examine the feasability of predicting energy consumption given information about a household.
 
 ## Introduction
-
-### Cleaning Data
-#### Removing Columns
-#### Filling in Data
+Energy usage in US households consists primarily of electricity and natural gas, but the usage of these resources varies significantly.
 
 ## Method and Result
 
-### PCA
+### Data Preparation
+#### Removing Columns
+#### Filling in Data
+
+### Feature Selection
+How much energy a household uses is a complex matter: it's determined by many variables. We want to identify which aspects of the homes and the homeowners contribute the most to their energy use. By focusing our efforts on the most impactful factors will yield the best results.
+
+#### Recursive Feature Elimination
+Recursive Feature Elimination (RFE) is a method of identifying the most valuable features by building many models with all the variables and removing those that have little reduction to the total error. Running this method on our input data, we can see that there are several key features that explain much of the variance, and that a majority of the features contribute only a little. We used 10-fold validation on RFE to avoid over-fitting our results.
+
+![RFE](feature_count_vs_error.png)
+
+And now if we zoom in on our most useful variables...
+
+![Top Features](impactful_variables.png)
+
+| Variable | Description                                       | Root Mean Squared Error |
+| -------- | ------------------------------------------------- | ----------------------: |
+| NHSLDMEM | Number that live in the household                 | 0.1035                  |
+| TYPEHUQ  | Type of home (e.g. single-family, apartment, etc) | 0.2412                  |
+| HD65     | Number of hot days                                | 0.3515                  |
+| TOTHSQFT | Total home square feet                            | 0.3958                  |
+| TOTSQFT  | Total square feet                                 | 0.4165                  |
+| LRGSTATE | Is a large state (i.e. CA, FL, OR, TX)            | 0.4151                  |
+
+We can see that ...
+
+#### Principle Component Analysis
+Another way to understand the impact our variables have on energy usage is to examine how the variables interact with each other. We can do this through Principle Component Analysis (PCA).
+
+![Top 2 component interactions](biplot_pca1_pca2.png)
+
 Why we chose to do it
 How we did it
 Results: CumSum.png
@@ -30,13 +68,14 @@ Output of best predictor
 
 ### Reducing Error with Linear Model
 
+
 ## Conclusion and Further Work
+
 
 ## Takeaways
 This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
 
-
-
+Earlier exploratory analysis
 
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
