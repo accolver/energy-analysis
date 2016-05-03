@@ -25,8 +25,12 @@ Energy usage in US households consists primarily of electricity and natural gas,
 ## Method and Result
 
 ### Data Preparation
+Describe our data set and where it comes from
 #### Removing Columns
-#### Filling in Data
+We opted to remove variables in the data set when half or more of the values were missing. Many of these fields we removed had less than 10% of the data present. Given the high dimensionality of our data set, we felt that variables with too few observations would erroneously impact our analysis.
+
+#### Accounting for Missing Data
+Of those fields that remained, we filled in missing values by sampling from the distribution of existing values. This approach maintains the shape of our original distributions and allows us to use all our observations.
 
 ### Feature Selection
 How much energy a household uses is a complex matter: it is determined by many variables. We want to identify which aspects of the homes and the homeowners contribute the most to their energy use. By focusing our efforts on the most impactful factors, we can identify which changes could potentially yield the best results.
