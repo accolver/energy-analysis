@@ -51,9 +51,16 @@ And now if we zoom in, we can see our most useful variables:
 | HD65     | Number of hot days                                | 0.3515                  |
 | TOTHSQFT | Total home square feet                            | 0.3958                  |
 | TOTSQFT  | Total square feet                                 | 0.4165                  |
-| LRGSTATE | Is a large state (i.e. CA, FL, OR, TX)            | 0.4151                  |
+| LRGSTATE | Is a large state (i.e. CA, FL, NY, TX)            | 0.4151                  |
 
-Our results show that the number of household members contributed the most to reducing the error in our model. This is likely due to the more frequent usage of appliances by household members. Additionally, with more people living in the hosehold, there's more likely at least one person home requiring heating or cooling.
+Our results show that the number of household members contributed the most to reducing the error in our model. This is likely due to the more frequent usage of appliances by household members. The other findings are pretty self evident. The type of home is typically associated with square footage. The number of hot days clearly would be related to how much AC would be required to stay cool. Square footage is obviously related with how much heating/cooling is required.
+
+The large states; however, have more to do with geography and less to do with population. The graph below shows KWH usage by state. And as can be expected the lower/warmer states use more electricity for cooling their homes.
+
+![KWH by state](KWH_Use_by_State.png)
+
+(If we plot usage of natural gas by state, the trend is simply reversed)
+
 
 #### Principle Component Analysis
 Another way to understand the impact our variables have on energy usage is to examine how the variables interact with each other. We can do this through Principle Component Analysis (PCA). With PCA we convert the variables into Principle Components. These components are a weighted combination of many variables, which captures the interplay amongst these variables. They are arranged by how much each component contributes to the variance.
@@ -62,7 +69,7 @@ So, principle component 1 (PC1) explains the most about our energy usage, PC2 th
 
 ![Top 2 component interactions](biplot_pca1_pca2.png)
 
-Principle Component 2 (PC2), however, reveals an interesting finding. It appears that older persons tend to use less energy. We can see that the older the primary owner is (AGEHHMEM1) and if they are in retirement (RETIREPY) as associated with less energy consumption. And on the flip side we see that those who are working (WORKPAY) and have more people at home (NHSLDMEM) (e.g. young families) use more energy. One hypothesis is that older persons are more experienced with home ownership. They have more years of home ownership and have thus optimized the heating/cooling of their homes to reduce costs. An alternative, and perhaps better supported hypothesis, is that older people tend to live alone or with fewer people. This hypothesis is not only supported by the PCA, but it was found that the number of household members (NHSLDMEM) was our strongest single feature found in RFE.
+Principle Component 2 (PC2), however, reveals an interesting finding. It appears that older persons tend to use less energy. We can see that the older the primary owner is (AGEHHMEM1) and if they are in retirement (RETIREPY) as associated with less energy consumption. And on the flip side we see that those who are working (WORKPAY) and have more people at home (NHSLDMEM) (e.g. young families) use more energy. One hypothesis is that older persons are more experienced with home ownership. They have more years of home ownership and have thus optimized the heating/cooling of their homes to reduce costs. An alternative hypothesis is that older people tend to be home bound. This can also be seen in the above graph by the ATHOME variable, which means that at least 1 person is home all day on a typical weekday. While being at home all day, older people can keep a closer tab on their heating and cooling, whereas younger individuals and families leave their home more frequently for work, school, and shopping, and often forget to adjust their heating/cooling accordingly.
 
 ### Classification
 Adjusting our SD threshold for improved accuracy on high and low
@@ -73,30 +80,10 @@ Output of best predictor
 
 
 ## Conclusion and Further Work
+Alan - I'm guessing that people leaving the home is a primary cause of energy waste, which is why many energy companies offer rebates for smart thermometers, and why old people have lower energy usage rates (they're at home more often)
 
 
 ## Takeaways
 This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
 
 Another thing that we would do differently on future projects is to spend more time on gathering client requirements. We charged gung ho ahead with our new-found data mining skills and spent significant time implementing many of the techniques only to realize they might not be very useful given our client's requirements. After having a brief discussion with the client to clarify expectations, we had a well defined plan of action. Doing this earlier would have saved us considerable time.
-
-
-
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
