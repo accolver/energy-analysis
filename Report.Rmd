@@ -29,14 +29,14 @@ Energy usage in US households consists primarily of electricity and natural gas,
 #### Filling in Data
 
 ### Feature Selection
-How much energy a household uses is a complex matter: it's determined by many variables. We want to identify which aspects of the homes and the homeowners contribute the most to their energy use. By focusing our efforts on the most impactful factors will yield the best results.
+How much energy a household uses is a complex matter: it is determined by many variables. We want to identify which aspects of the homes and the homeowners contribute the most to their energy use. By focusing our efforts on the most impactful factors, we can identify which changes could potentially yield the best results.
 
 #### Recursive Feature Elimination
 Recursive Feature Elimination (RFE) is a method of identifying the most valuable features by building many models with all the variables and removing those that have little reduction to the total error. Running this method on our input data, we can see that there are several key features that explain much of the variance, and that a majority of the features contribute only a little. We used 10-fold validation on RFE to avoid over-fitting our results.
 
 ![RFE](feature_count_vs_error.png)
 
-And now if we zoom in on our most useful variables...
+And now if we zoom in, we can see our most useful variables:
 
 ![Top Features](impactful_variables.png)
 
@@ -49,17 +49,16 @@ And now if we zoom in on our most useful variables...
 | TOTSQFT  | Total square feet                                 | 0.4165                  |
 | LRGSTATE | Is a large state (i.e. CA, FL, OR, TX)            | 0.4151                  |
 
-We can see that ...
+Our results show that the number of household members contributed the most to reducing the error in our model. This is likely due to the more frequent usage of appliances by household members. Additionally, with more people living in the hosehold, there's more likely at least one person home requiring heating or cooling.
 
 #### Principle Component Analysis
-Another way to understand the impact our variables have on energy usage is to examine how the variables interact with each other. We can do this through Principle Component Analysis (PCA).
+Another way to understand the impact our variables have on energy usage is to examine how the variables interact with each other. We can do this through Principle Component Analysis (PCA). With PCA we convert the variables into Principle Components. These components are a weighted combination of many variables, which captures the interplay amongst these variables. They are arranged by how much each component contributes to the variance.
+
+So, principle component 1 (PC1) explains the most about our energy usage, PC2 the second most, and so on. We can see in the graph below that our most explanatory component (PC1) is square footage, and it's opposite is the type of home (TYPEHUQ), with higher category number typically denoting smaller home types (e.g. apartments). This finding is intuitive. Larger homes take more energy to regulate temperature, and smaller homes require less.
 
 ![Top 2 component interactions](biplot_pca1_pca2.png)
 
-Why we chose to do it
-How we did it
-Results: CumSum.png
-BiPlot.png
+Principle Component 2 (PC2), however, reveals an interesting finding. It appears that older persons tend to use less energy. We can see that the older the primary owner is (AGEHHMEM1) and if they are in retirement (RETIREPY) as associated with less energy consumption. And on the flip side we see that those who are working (WORKPAY) and have more people at home (NHSLDMEM) (e.g. young families) use more energy. One hypothesis is that older persons are more experienced with home ownership. They have more years of home ownership and have thus optimized the heating/cooling of their homes to reduce costs. An alternative, and perhaps better supported hypothesis, is that older people tend to live alone or with fewer people. This hypothesis is not only supported by the PCA, but it was found that the number of household members (NHSLDMEM) was our strongest single feature found in RFE.
 
 ### Classification
 Adjusting our SD threshold for improved accuracy on high and low
