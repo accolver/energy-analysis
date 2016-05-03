@@ -75,7 +75,9 @@ Output of best predictor
 ## Takeaways
 This project did a great job of demonstrating the reality of real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we will allocate more time to understanding the variables and dealing with missing values.
 
-Earlier exploratory analysis
+Another thing that we would do differently on future projects is to spend more time on gathering client requirements. We charged gung ho ahead with our new-found data mining skills and spent significant time implementing many of the techniques only to realize they might not be very useful given our client's requirements. After having a brief discussion with the client to clarify expectations, we had a well defined plan of action. Doing this earlier would have saved us considerable time.
+
+
 
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
