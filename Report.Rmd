@@ -15,10 +15,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Abstract
 Understanding the nation's energy usage patterns is critical to building a sustainable infrastructure and reducing/mitigating total energy consumption. Identifying areas of waste and opportunities to implement resource-saving practices could drastically reduce the cost of various energy types. Significant time, money, and effort has been invested in the "smart grid", a blending of the nation's existing energy infrastructure with modern technologies and adaptive learning algorithms.  Prime examples of this include Nest and Google's Power Meter, both of which attempt to learn from and predict energy usage patterns with the goal of helping reduce excess power consumption.  This problem is highly complex, with multiple sources of power per household and numerous potential predictors of consumption, including both demographic features and household attributes.
 
+<<<<<<< HEAD
 In our data mining analysis, we reviewed the profiles of approximately 4,500 households based on publicly-available energy consumption data collected by the Energy Information Administration ("EIA") to identify patterns related to the usage of electricity and natural gas. From this data, we: (1) identified the most significant predictors of energy consumption based on the data; (2) trained models to help predict total energy consumption and the impact certain features have on overall consumption; and (3) utilized this data to recommend features on which homeowners and landlords can focus to reduce their overall energy consumption profiles. 
 
 ## Introduction
 Energy consumption in U.S. households consists primarily of electric power and natural gas usage but also may include LPG, fuel oil, kerosene, and other products. The purpose of this project was to integrate energy consumption data based on the Residential Energy Consumption Survey from 2005 with certain demographic and household information also provided by the survey. The dataset of interest had 3 main components: (1) energy consumption data, including power, natural gas, LPG, and kerosene, both in native units and in BTU, found in the energy_consumption.csv file; (2) household measurements, including total square footage, square footage by room, square footage of heated versus unheated portions, and square footage of cooled versus uncooled portions, in the house.csv file; and (3) demographic information of the owner(s) of the household, including number of members, age of members, employment status, work status, and income bracket, found in the household.csv file. These files were all linked together by a shared ID field (DOEID).
+=======
+In our data mining analysis, we will look at the profiles of approximately 5,000 households based on publicly available energy consumption data collected by the Energy Information Administration ("EIA") to identify patterns related to the usage of electriciy and natural gas. From this data, we will: (1) identify the most significant predictors of energy consumption based on the data; (2) train models to help predict total energy consumption and the impact certain features have on overall consumption; and (3) recommend ways homeowners and landlords can reduce energy consumption. 
+
+## Introduction
+Energy consumption in U.S. households consists primarily of electric power and natural gas usage but also may include LPG, fuel oil, kerosene, and other products.  The purpose of this project was to integrate energy consumption data based on the Residential Energy Consumption Survey from 2005 with certain demographic and household information also provided by the survey.  The dataset of interest had 3 main components: (1) energy consumption data, including power, natural gas, LPG, and kerosene, both in native units and in BTU, found in the energy_consumption.csv file; (2) household measurements, including total square footage, square footage by room, square footage of heated versus unheated portions, and square footage of cooled versus uncooled portions, in the house.csv file; and (3) demographic information of the owner(s) of the household, including number of members, age of members, employment status, work status, and income bracket, found in the household.csv file.  These files were all linked together by a shared ID field (DOEID).
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 In total, this dataset was fairly rich. The energy consumption data had total energy consumption by product but also estimated consumption for each product by end use. For power consumption, the data was subdivided into dryer use, dishwater use, freezer use, and other uses, while for natural gas consumption, the data included both appliance and heating uses. Though a significant number of output variables was present, most of the data collected was for electric power and natural gas usage. Given these tend to be the predominant sources of household energy, we focused primarily on these two metrics (and their aggregate sum). The house.csv file consisted of 30 potential attributes primarily revolving around square footage metrics in total and by household room. The household.csv file contained 28 attributes related to demographic data associated with each household. Thus, in total, there were over 15 viable outputs for a predictive model and nearly 60 potential predictors from which to choose.
 
@@ -37,13 +44,21 @@ We quickly realized that not all attributes had meaningful amounts of data with 
 For the features which remained after the initial level of pruning, we implemented two methodologies to remove the NULL/default or "NA" values. For almost all features, we replaced each instance of a NULL/default or "NA" with a sampled value from the non-NULL elements of that feature. This approach maintains the shape of the feature distributions while simultaneously avoids discarding observations which could be of importance. When dealing with total BTU consumption, almost all of the observations had numeric values for power usage; however, many of the natural gas usage values were NULL. To create a more accurate output set, we implemented a linear regression model for natural gas BTU usage by using the remaining non-consumption features and replaced the NULL/default values with the regressed output.
 
 #### Creation of New Features
+<<<<<<< HEAD
 We found the feature set to be very fulsome and thus saw a limited need to create new features. However, we did add a total BTU usage output based on the sumtotal of the electric power BTU usage and the natural gas usage. This output variable would be a more holistic representation of a typical household's energy consumption profile, particularly in the Northern U.S. where natural gas consumption is high. We also noted that there were features for the age of each member of a household and for the total number of household members but not one for the average age of a household member. Given the hypothesis that the elderly tend to use less energy than younger families, we thought it could be significant in forming a predictive analysis.
+=======
+We found the feature set to be very fulsome and thus saw a limited need to create new features.  However, we did add a total BTU usage output based on the sumtotal of the electric power BTU usage and the natural gas usage.  This output variable would be a more fulsome/holistic representation of a typical household's energy consumption  profile, particularly in the Northern U.S.  We also noted that there were features for the age of each member of a household and for the total number of household members but not one for the average age of a household member.  Given the hypothesis that the elderly tend to use less energy than younger families, we thought it could be significant in forming a predictive analysis.
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 ### Feature Selection
 How much energy a household uses is a complex matter: it is potentially determined by many variables. Additionally, as mentioned previously, the dataset from the EIA has a rich set of features from which to run predictive algorithms. For the first part of the project, we wanted to identify which aspects of the homes and the homeowners contribute the most to their energy use. By focusing our efforts on the most impactful factors, we could then identify which changes would potentially yield the best results for clients who wish to better predict or reduce their overall energy consumption.
 
 #### Recursive Feature Elimination
+<<<<<<< HEAD
 In attempt to understand the impact of the most important variables on a household's energy consumption profile, we ran Recursive Feature Elimination ("RFE"), which is a method of building many models with all the variables and removing those variables that have little reduction to the total error. Running this method on our input data, we can see that there are several key features that explain much of the variance and that a majority of the features contribute little to the overall variability of the data.  This is as we would expect for a highly dimensional feature set with a number of potentially correlative features. We used 10-fold cross validation, a method of running multiple instances of model training to help prune the selection process based on estimates of error rates, on RFE to avoid over-fitting our results.  Over-fitting involves training highly complex models on data which are too sensitive to naturally-occurring variability in the dataset and thus generate additional error when predicting output behavior.
+=======
+In attempt to understand the most important variables, we ran Recursive Feature Elimination ("RFE""), which is a method of building many models with all the variables and removing those variables that have little reduction to the total error. Running this method on our input data, we can see that there are several key features that explain much of the variance and that a majority of the features contribute only a little to the overall variability of the data. We used 10-fold validation on RFE to avoid over-fitting our results.
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 ![RFE](feature_count_vs_error.png)
 
@@ -51,14 +66,14 @@ And now, if we zoom in, we can see our most useful predictive features for the h
 
 ![Top Features](impactful_variables.png)
 
-| Variable | Description                                       | Root Mean Squared Error |
-| -------- | ------------------------------------------------- | ----------------------: |
-| NHSLDMEM | Number that live in the household                 | 0.1035                  |
-| TYPEHUQ  | Type of home (e.g. single-family, apartment, etc) | 0.2412                  |
-| HD65     | Number of heat-degree days (65 base temp)         | 0.3515                  |
-| TOTHSQFT | Total home square feet                            | 0.3958                  |
-| TOTSQFT  | Total square feet                                 | 0.4165                  |
-| LRGSTATE | Is a large state (i.e. CA, FL, NY, TX)            | 0.4151                  |
+| Variable | Description                                       |
+| -------- | ------------------------------------------------- |
+| NHSLDMEM | Number that live in the household                 |
+| TYPEHUQ  | Type of home (e.g. single-family, apartment, etc) |
+| HD65     | Number of heat-degree days (65 base temp)         |
+| TOTHSQFT | Total home square feet                            |
+| TOTSQFT  | Total square feet                                 |
+| LRGSTATE | Is a large state (i.e. CA, FL, NY, TX)            |
 
 Our results show that the number of household members contributed the most to reducing the error in our model. This is likely due to the more frequent usage of and greater number of appliances by household members. The other findings are also pretty self-evident. The type of home is correlated to total square footage. Square footage is obviously related to how much heating/cooling is required for a household. The number of heat degree days clearly would be related to total heat usage during cooler periods. 
 
@@ -85,6 +100,7 @@ To begin, we subdivided the output dataset (total energy usage) into three categ
 
 After feeding this output with the top 24 PCA components (representing 90% of the underlying variance of the dataset) to the classification algorithms, we were able to achieve a meaningful improvement over the default predictor set (mode value predictor) with respect to accuracy while simultaneously identifying over 50% of the "Low" and "High" cases. The SVM model performed the best, averaging 62% accuracy over the cross-validation folds utilizing the PCA data.
 
+<<<<<<< HEAD
 
 | Model    | Accuracy Rate   | Identification Rate, High   | Identification Rate, Low    |
 | -------- | --------------- | --------------------------- | --------------------------- |
@@ -92,6 +108,21 @@ After feeding this output with the top 24 PCA components (representing 90% of th
 | Tree     | 53.6%           | 58.6%                       | 48.7%                       |
 | Default  | 42.9%           | 0.0%                        | 0.0%                        |
 
+=======
+```{r}
+# The average accuracy for the svm model is:  0.6191562 
+# The identification rate for high values is:  0.5596026 
+# The identification rate for low values is:  0.5477387 
+
+# The average accuracy for the tree model is:  0.5359179 
+# The identification rate for high values is:  0.5860927 
+# The identification rate for low values is:  0.4874372 
+
+# The average accuracy for the default model is:  0.4287343 
+# The identification rate for high values is:  0 
+# The identification rate for low values is:  0 
+```
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 While the classification models did not help quantify the impact individual features had on household energy consumption (done using predictive algorithms as described below), the models did validate that the PCA feature selection findings did significantly outperform the default value selection when categorizing household energy consumption as "Low", "High", or "Normal". Thus, we can conclude that there is a significant determining factor with respect to the features emphasized in the set of Principal Components which does contribute to anomalous energy usage based on the average household profile as represented in the data set.
 
@@ -117,6 +148,7 @@ print(h1)
 h2 <- ggplot(my.data, aes(x=HD65,y=TOTBTU)) + geom_point(color="blue")+ggtitle("BTU Usage Vs Heat Deg-Days (Base 65)")+theme(plot.title = element_text(face="bold")) + xlab("HD65") + ylab("BTU") + geom_smooth(method=lm)
 print(h2)
 
+<<<<<<< HEAD
 h3 <- ggplot(my.data, aes(x=TYPEHUQ,y=TOTBTU)) + geom_point(color="blue")+ggtitle("BTU Usage Vs Type of House")+theme(plot.title = element_text(face="bold")) + xlab("House Type") + ylab("BTU") + geom_smooth(method=lm)
 print(h3)
 
@@ -135,6 +167,18 @@ For the predictive part of this project, we focused on three main energy consump
 | Default                | 51,258.91          |
 
 As shown above, the linear regression model with the ability to tune quadratic parameters (up to third order) for the most significant continuous feature variables performed the best on the test data, slightly edging the standard linear model.  The tuned decision tree regression model also meaningfully outperformed the default data set but failed to match the result of the linear and quadratic models.
+=======
+For the predictive part of this project, we focused on three main energy consumption output variables: (1) total electric power usage; (2) total natural gas usage (more prevalent in the Northern U.S.; commonly used for heating and cooking); and (3) total BTU usage of power and natural gas combined.  As the predictive model would need to take many input features and output an estimated energy usage, we focused our predictive analysis on multivariate regression models.  After exploring numerous types of linear and non-linear regression models and running such models through cross validation techniques, we settled on training three types of models for our final analysis: (1) the standard linear model; (2) the standard linear model with quadratic features for continuous variables; and (3) the decesion tree regression model.  We then performed one final cross validation on these three models and included the default predictor for comparitive purposes (generates the mean output for all inputs).  The root mean squared error ("RMSE") results shown below are for total BTU consumption using a five-fold cross validation of the data set with training/validation splits of 80%/20%. 
+
+```{r}
+# The RMSE of the quadratic fit is:  37598.02 
+# The RMSE of the linear fit is:  37715.17 
+# The RMSE of the tree predictor is:  41841.85 
+# The RMSE of the default predictor is:  51258.91 
+```
+
+As shown above, the linear regression model with the ability to tune quadratic parameters (up to third order) for the most significant continuous feature variables performed the best on the test data, slightly edging the standard linear model.  The tuned decision tree regression model also outperformed the default data set but failed to match the result of the linear and quadratic models.
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 The quadratic regression model reduced RMSE by 25% for all three output types (BTU, power, natural gas) as shown below.
 
@@ -188,9 +232,19 @@ print(h1)
 
 
 ## Conclusion and Further Work
+<<<<<<< HEAD
 Our conclusions for this project revolve around the original stated goals and can be summarized as: (1) the ability to predict highly correlative features for household energy consumption is most certainly possible and achievable to a certain degree based on the publicly available data sourced from the EIA and (2) basic predictive modeling can estimate household energy consumption significantly better than merely taking averages across the feature set. Though we had only 4,382 data points, hardly a comprehensive data set when predicting for the average U.S. household, certain features definitely stood out as significant - total square footage, number of household memebers, type of household, number of heat-degree days, and how frequently the householder reporting being at home. While these are somewhat intuitive, utilizing predictive regression modeling and feature selection algorithms helped to quantify the relative importance of these features to overall energy consumption and further elucidate relationships among more complex potential features (e.g., average age of household members, average age of house, wall type, employment status, and income type). We feel confident that our first attempt at training predictive models can aid significantly in forming theses around the importance of various predictors on energy consumption, and given a more fulsome data set and higher-order regression modeling algorithms, we believe we can further tune these models to reduce the RMSE even more.
+=======
+Our conclusions for this project revolve around the original stated goals and can be summarized as: (1) the ability to predict highly correlative features for household energy consumption is most certainly possible and achievable to a certain degree based on publicly available data, and (2) basic predictive modeling can estimate household energy consumption significantly better than merely taking averages across the feature set.  Though we had only 4,382 data points, hardly a comprehensive data set when predicting for the average U.S. household, certain features definitely stood out as significant - total square footage, number of household memebers, type of household, number of heat-degree days, and how frequently the householder reporting being at home.  While these are somewhat intuitive, utilizing predictive regression modeling and feature selection algorithms helped to quantify the relative importance of these features to overall energy consumption and further elucidate relationships among more complex potential features (e.g. average age of household members, average age of house, wall type, employment status, and income type).  We feel confident that our first attempt at training predictive models can aid significantly in forming theses around the importance of various predictors on energy consumption, and given a more fulsome data set and higher-order regression modeling algorithms, we believe we can further tune these models to reduce the RMSE even more.
+
+Having a predictive algorithm which accurately helps quantify household energy consumption and guide users on energy consumption reduction tips is already available (to varying degrees of quality) among tech-friendly energy appliances (e.g. the Nest home thermostat).  Continuing to improve these algorithms utilizing ever-expanding data sets which can be tuned to the specific end user is highy important to maintaining a carbon-reduction initiative in the U.S. and mitigating stress on the existing grid.  We would welcome the opportunity to utilize even more granular data with more measurements and additional dimensionality to improve upon our algorithms.
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
 
 Having a predictive algorithm which accurately helps quantify household energy consumption and guides users on energy consumption reduction tips is already available (to varying degrees of quality) among tech-friendly energy appliances (e.g., the Nest home thermostat). Continuing to improve these algorithms utilizing ever-expanding data sets which can be tuned to the specific end user is highy important to maintaining a carbon-reduction initiative in the U.S. and mitigating stress on the existing grid. We would welcome the opportunity to utilize even more granular data with more measurements and additional dimensionality to improve upon our algorithms.  For example, rather than taking basket averages across the U.S. with the only major geographic parameter being the division among the four largest states and "other", we think a logical next step would be to collect sufficient measurements by region or state so as to better understand regional variances in household energy consumption.
 
 ## Takeaways
+<<<<<<< HEAD
 This project did a great job of demonstrating the reality of practicing data mining techniques on real world datasets compared to the pre-processed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation or conclusion. There is a lot of noise and a lot of missing data. Given this new perspective, we now fully appreciate the significance of allocating the appropriate amount of time to understanding the variables and dealing with missing values. We also grew to appreciate the importance of interacting with the client early on so as to tailor the data mining algorithms and procedures to meet the client's particular needs. After having a brief discussion with the client to clarify expectations in Week 2 of the project, we formalized a well-defined plan of action for completing our assessment. Doing this earlier in the process would have saved man hours spent testing various approaches which ultimately did not prove fruitful.
+=======
+This project did a great job of demonstrating the reality of practicing data mining techniques on real world datasets compared to the preprocessed examples that students are accustomed to working with. Real data sets are messy. Real data sets don't always have that one obvious correlation. There is a lot of noise and a lot of missing data. Given this new perspective, we now fully appreciate the significance of allocating the appropriate amount of time to understanding the variables and dealing with missing values.  We also grew to appreciate the importance of interacting with the client early on so as to tailor the data mining algorithms and procedures to meet the client's needs.  After having a brief discussion with the client to clarify expectations in Week 2 of the project, we formalized a well-defined plan of action. Doing this earlier would have saved man hours spent testing various approaches which ultimately did not prove fruitful.
+>>>>>>> 34f390e3a6a872bc78bf7cca9cf6a3026226f772
